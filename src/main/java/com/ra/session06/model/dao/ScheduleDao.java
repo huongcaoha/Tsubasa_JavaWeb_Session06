@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 @Repository
@@ -70,6 +71,7 @@ public class ScheduleDao {
 
     public void update(Schedule schedule) {
         Timestamp sqlTimestamp = Timestamp.valueOf(schedule.getShowTime());
+
         try (Connection connection = ConnectDatabase.getConnection();
              CallableStatement call = connection.prepareCall("{call UpdateSchedule(?, ?, ?, ?, ?, ?)}")) {
             call.setLong(1, schedule.getId());
